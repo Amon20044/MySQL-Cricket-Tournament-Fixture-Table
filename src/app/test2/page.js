@@ -70,81 +70,56 @@ export default function Test() {
 
     return (
         <>
-            <div className="bg-gray-400 h-screen flex flex-col justify-center items-center">
-                <Head />{
-                    points.map((point) => {
-                        return (
-
-                            <div className="flex flex-row justify-center items-center">
-                                <div className="flex flex-row">
-                                    <div className="border px-4 py-2 w-100">{point.team_id}</div>
-                                    <div className="border px-4 py-2 w-100">{point.team_name}</div>
-                                    <div className="border px-4 py-2 w-100">{point.Matches}</div>
-                                    <div className="border px-4 py-2 w-100">{point.Won}</div>
-                                    <div className="border px-4 py-2 w-100">{point.Lost}</div>
-                                    <div className="border px-4 py-2 w-100">{point.NetRunRate}</div>
-                                    <div className="border px-4 py-2 w-100">{point.Points}</div>
-                                </div>
-                            </div>
-                        );
-                    })
-                }
-                <div className="flex flex-row justify-center items-center">
+            <div className="bg-gray-400 min-h-screen flex flex-col justify-center items-center">
+                <Head />
+                <div className="overflow-x-auto">
+                    <table className="table-auto border-collapse border border-black">
+                        <thead>
+                            <tr>
+                                <th className="border border-black px-4 py-2">Team ID</th>
+                                <th className="border border-black px-4 py-2">Team Name</th>
+                                <th className="border border-black px-4 py-2">Matches</th>
+                                <th className="border border-black px-4 py-2">Won</th>
+                                <th className="border border-black px-4 py-2">Lost</th>
+                                <th className="border border-black px-4 py-2">Net Run Rate</th>
+                                <th className="border border-black px-4 py-2">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {points.map((point, index) => (
+                                <tr key={index}>
+                                    <td className="border border-black px-4 py-2">{point.team_id}</td>
+                                    <td className="border border-black px-4 py-2">{point.team_name}</td>
+                                    <td className="border border-black px-4 py-2">{point.Matches}</td>
+                                    <td className="border border-black px-4 py-2">{point.Won}</td>
+                                    <td className="border border-black px-4 py-2">{point.Lost}</td>
+                                    <td className="border border-black px-4 py-2">{point.NetRunRate}</td>
+                                    <td className="border border-black px-4 py-2">{point.Points}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <div className="flex flex-row justify-center items-center mt-3">
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleAddClick}>Add</button>
                 </div>
                 {isClicked && (
-                    <div className="flex flex-row justify-center items-center">
-                        <div className="flex flex-col justify-center items-center  text-blue-800">
-                            <div><input
-                                className="mx-2 border-2 border-blue-600"
-                                onChange={(e) => handleInputChange("team1_id", e.target.value)}
-                                placeholder="Team 1 ID"
-                            />
-                                <input
-                                    className="mx-2 border-2 border-blue-600"
-                                    onChange={(e) => handleInputChange("team2_id", e.target.value)}
-                                    placeholder="Team 2 ID"
-                                /></div>
-                            <div><input
-                                className="mx-2 border-2 border-blue-600"
-                                onChange={(e) => handleInputChange("winner_id", e.target.value)}
-                                placeholder="Winner ID"
-                            />
-                                <input
-                                    className="mx-2 border-2 border-blue-600"
-                                    onChange={(e) => handleInputChange("no_result", e.target.value)}
-                                    placeholder="No Result (true/false)"
-                                /></div>
-                            <div><input
-                                className="mx-2 border-2 border-blue-600"
-                                onChange={(e) => handleInputChange("Runs_scored_team1", e.target.value)}
-                                placeholder="Runs scored by Team 1"
-                            />
-                                <input
-                                    className="mx-2 border-2 border-blue-600"
-                                    onChange={(e) => handleInputChange("Overs_faced_team1", e.target.value)}
-                                    placeholder="Overs faced by Team 1"
-                                /></div>
-                            <div>  <input
-                                className="mx-2 border-2 border-blue-600"
-                                onChange={(e) => handleInputChange("Runs_scored_team2", e.target.value)}
-                                placeholder="Runs scored by Team 2"
-                            />
-                                <input
-                                    className="mx-2 border-2 border-blue-600"
-                                    onChange={(e) => handleInputChange("Overs_faced_team2", e.target.value)}
-                                    placeholder="Overs faced by Team 2"
-                                /></div>
-                            <div>
-                                <button
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                    onClick={handleSubmit}
-                                >Submit
-                                </button></div>
+                    <div className="flex flex-row justify-center items-center mt-3">
+                        <div className="flex flex-col justify-center items-center text-blue-800">
+                            <input className="border border-blue-600 px-2 py-1 mt-2" onChange={(e) => handleInputChange("team1_id", e.target.value)} placeholder="Team 1 ID" />
+                            <input className="border border-blue-600 px-2 py-1 mt-2" onChange={(e) => handleInputChange("team2_id", e.target.value)} placeholder="Team 2 ID" />
+                            <input className="border border-blue-600 px-2 py-1 mt-2" onChange={(e) => handleInputChange("winner_id", e.target.value)} placeholder="Winner ID" />
+                            <input className="border border-blue-600 px-2 py-1 mt-2" onChange={(e) => handleInputChange("no_result", e.target.value)} placeholder="No Result (true/false)" />
+                            <input className="border border-blue-600 px-2 py-1 mt-2" onChange={(e) => handleInputChange("Runs_scored_team1", e.target.value)} placeholder="Runs scored by Team 1" />
+                            <input className="border border-blue-600 px-2 py-1 mt-2" onChange={(e) => handleInputChange("Overs_faced_team1", e.target.value)} placeholder="Overs faced by Team 1" />
+                            <input className="border border-blue-600 px-2 py-1 mt-2" onChange={(e) => handleInputChange("Runs_scored_team2", e.target.value)} placeholder="Runs scored by Team 2" />
+                            <input className="border border-blue-600 px-2 py-1 mt-2" onChange={(e) => handleInputChange("Overs_faced_team2", e.target.value)} placeholder="Overs faced by Team 2" />
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" onClick={handleSubmit}>Submit</button>
                         </div>
                     </div>
                 )}
             </div>
         </>
     );
+
 }

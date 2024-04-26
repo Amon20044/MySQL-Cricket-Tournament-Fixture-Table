@@ -41,53 +41,46 @@ export default function Test() {
 
     return (
         <>
-
-            <body><div class="bg-gray-400 h-screen flex flex-col justify-center items-center ">
+            <div className="bg-gray-400 min-h-screen flex flex-col justify-center items-center">
                 <Head />
-                {
-                    results.map((result) => {
-                        return (
-                            <div class="flex flex-row justify-center items-center">
-                                <div class="flex flex-row">
-                                    <div class="border px-4 py-2 w-100">{result.team_id}</div>
-                                    <div class="border px-4 py-2 w-100">{result.team_name}</div>
-                                </div>
-                            </div>
-                        );
-                    })
-                }
-                <div class="flex flex-row justify-center items-center"><button class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={(e) => {
-                    setIsClicked(true)
-                }} >Add</button ></div>
-                {
-                    isClicked ? (
-                        <><div class="flex flex-row justify-center items-center  text-blue-800">
-                            <input className={" text-black"} class="mx-2 border-2 border-blue-600 " onChange={(e) => {
-                                setInput({
-                                    ...input,
-                                    team_id: e.target.value
-                                })
-                            }} placeholder={"Team ID"} />
-                            <input className={" text-black"} class="mx-2 border-2 border-blue-600" onChange={(e) => {
-                                setInput({
-                                    ...input,
-                                    team_name: e.target.value
-                                })
-                            }} placeholder={"Team Name"} />
-                            <button class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={async (e) => {
-                                let resp = await fetch("/server", {
-                                    method: "POST",
-                                    body: JSON.stringify(input)
-                                })
-                                setResults([...results, input])
-                            }}>submit</button>
-                        </div> </>
-                    ) : null
-                }
-
-                <button class=" bg-blue-500 hover:bg-blue-700 text-white font-bold my-3 px-4 rounded" onClick={(e) => {
-                    router.push("/test2")
-                }}>Confirm</button></div>
-            </body></>
+                <div className="overflow-x-auto">
+                    <table className="table-auto border-collapse border border-black">
+                        <thead>
+                            <tr>
+                                <th className="border border-black px-4 py-2">Team ID</th>
+                                <th className="border border-black px-4 py-2">Team Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {results.map((result, index) => (
+                                <tr key={index}>
+                                    <td className="border border-black px-4 py-2">{result.team_id}</td>
+                                    <td className="border border-black px-4 py-2">{result.team_name}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <div className="flex flex-row justify-center items-center">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setIsClicked(true)}>Add</button>
+                </div>
+                {isClicked && (
+                    <div className="flex flex-row justify-center items-center text-blue-800 mt-3">
+                        <input className="border border-blue-600 px-2 py-1 mr-2" onChange={(e) => setInput({ ...input, team_id: e.target.value })} placeholder="Team ID" />
+                        <input className="border border-blue-600 px-2 py-1 mr-2" onChange={(e) => setInput({ ...input, team_name: e.target.value })} placeholder="Team Name" />
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={async () => {
+                            let resp = await fetch("/server", {
+                                method: "POST",
+                                body: JSON.stringify(input)
+                            });
+                            setResults([...results, input]);
+                            setIsClicked(false);
+                        }}>Submit</button>
+                    </div>
+                )}
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold my-3 px-4 rounded" onClick={() => router.push("/test2")}>Confirm</button>
+            </div>
+        </>
     )
+
 }
