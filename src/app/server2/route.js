@@ -7,7 +7,7 @@ export async function POST(req) {
     const connection = await mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        password: '@Kruti14',
+        password: '------',
         database: 'cricket',
     });
 
